@@ -1,6 +1,6 @@
 """ 
 Muscle_Function_from_Force
-Version 1.0
+Version 1.01
 
 Author: Giacomo Valli
 Contacts: giacomo.valli@phd.unipd.it
@@ -32,15 +32,18 @@ This would be changed in a near future, in the meantime, feel free to try it out
 
 Possible improvements:
     - Work with different sample rates
-    - Filter noisy signals
+    - Filter noisy signals (alternate current)
 """
 
 ############################################# Input part #################################################
+"""
+You can change the initial directory of the GUI based open-file function
+It is useful to speed-up the research of the file to open
+"""
 
-# Example of the location: (C:\\Users\\Desktop\\) YOU MUST USE \\ and not \
-location = "C:\\Users\\Giacomo\\Desktop\\Filefabio\\"
-filename = "GT16O_MVC.mat"
 
+# Example of the location: (C:\\Users\\Desktop\\) in Windows YOU MUST USE \\ and not \
+initialdir = "\\"
 
 
 
@@ -50,9 +53,26 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import time
 import os
+from tkinter import *
+from tkinter import filedialog
 
-file_toOpen = "{}{}".format(location, filename)
+# Create and hide the tkinter root window necessary for the GUI based open-file function
+root = Tk()
+root.withdraw()
 
+file_toOpen = filedialog.askopenfilename(initialdir=initialdir,
+                                        title="Select a file", 
+                                        filetypes=[("Matlab files" , ".mat")]
+                                        )
+
+# Destroy the root since it is no longer necessary
+root.destroy()
+
+# Extract the name of the file and its location from the file path (file_toOpen)
+filename = os.path.basename(file_toOpen)
+location = os.path.dirname(file_toOpen)
+
+# Open the selected MATLAB file
 mat_file = loadmat(file_toOpen, simplify_cells=True)
 refsig = mat_file["data"]
 fsamp = mat_file["samplerate"]
@@ -183,8 +203,8 @@ print(res)
 print()
 
 # Save everything to csv in the same directory of the files
-res.to_csv("{}{}".format(location, "Risultati AC.csv"))
+res.to_csv("{}{}".format(location, "\\Risultati AC.csv"))
 
 # Open it
 time.sleep(1)
-os.startfile("{}{}".format(location, "Risultati AC.csv"))
+os.startfile("{}{}".format(location, "\\Risultati AC.csv"))

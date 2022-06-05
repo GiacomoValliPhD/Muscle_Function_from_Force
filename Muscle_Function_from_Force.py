@@ -18,6 +18,8 @@ exported from Labchart at 1000 Hz sampling frequency
 
 The user only needs to specify the path and file name in the ## Input part ##
 
+The script automatically filters the signal from noise caused by the alternate current.
+
 Instructions on what to do can be found in the plots' titles
 
 To work with the plots:
@@ -32,23 +34,22 @@ This would be changed in a near future, in the meantime, feel free to try it out
 
 Possible improvements:
     - Work with different sample rates
-    - Filter noisy signals (alternate current)
 """
 
 ############################################# Input part #################################################
 """
 You can change the initial directory of the GUI based open-file function
 It is useful to speed-up the research of the file to open
+
+# Example of the directory: (C:\\Users\\Desktop\\) in Windows YOU MUST USE \\ and not a single backslash
 """
 
-
-# Example of the location: (C:\\Users\\Desktop\\) in Windows YOU MUST USE \\ and not \
 initialdir = "\\"
-
 
 
 ############################# Start of the script - don't modify here ######################################
 from scipy.io import loadmat
+from scipy import signal
 import matplotlib.pyplot as plt
 import pandas as pd
 import time
@@ -83,8 +84,34 @@ if fsamp != 1000:
 
 # Convert the refsig from array to df
 refsig = pd.DataFrame(refsig)
+
 # Convert Kg in N
 refsig[0] = refsig[0] * 9.81
+
+# Filter the force signal with a low-pass, fourth order, Zero-lag Butterworth filter
+""" 
+40 Hz is the best frequency for filtering the AC noise and mantaining the 
+resolution of the signal in our setup 
+"""
+b, a = signal.butter(N=4, Wn=40, fs=fsamp, btype="lowpass")
+refsig[0] = signal.filtfilt(b, a, refsig[0]) # Use filtfilt for Zero-lag filtering
+
+""" 
+# Notch filter
+
+fs = 1000.0  # Sample frequency (Hz)
+f0 = 50.0  # Frequency to be removed from signal (Hz)
+Q = 30.0  # Quality factor
+
+# Design notch filter
+b, a = signal.iirnotch(f0, Q, fs)
+
+y = signal.filtfilt(b, a, refsig[0])
+
+plt.plot(y)
+plt.show()
+print("plot y") 
+"""
 
 
 

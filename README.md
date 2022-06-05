@@ -1,5 +1,5 @@
 # Muscle_Function_from_Force
-Version 1.0
+Version 1.02
 
 Author: Giacomo Valli
 Contacts: giacomo.valli@phd.unipd.it
@@ -17,6 +17,8 @@ exported from Labchart at 1000 Hz sampling frequency
 
 The user only needs to specify the path and file name in the ## Input part ##
 
+The script automatically filters the signal from noise caused by the alternate current.
+
 Instructions on what to do can be found in the plots' titles
 
 To work with the plots:
@@ -31,4 +33,3 @@ This would be changed in a near future, in the meantime, feel free to try it out
 
 Possible improvements:
     - Work with different sample rates
-    - Filter noisy signals

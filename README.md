@@ -1,5 +1,5 @@
 # Muscle_Function_from_Force
-Version 1.02
+Version 1.03
 
 Author: Giacomo Valli
 Contacts: giacomo.valli@phd.unipd.it
@@ -13,11 +13,13 @@ This script was made for UNIPD students, to compute:
 - AC (activation capacity (%))
 
 The input is a .mat file containing the reference signal (force)
-exported from Labchart at 1000 Hz sampling frequency
+exported from Labchart at 1000 Hz sampling frequency, but it works also with 
+a different sampling frequency
 
-The user only needs to specify the path and file name in the ## Input part ##
+The user only needs to run the script and read the instructions in the interactive figures
 
-The script automatically filters the signal from noise caused by the alternate current.
+The script automatically filters the signal from noise caused by the alternate current
+with a low-pass, fourth order, Zero-lag Butterworth filter.
 
 Instructions on what to do can be found in the plots' titles
 
@@ -28,8 +30,4 @@ To work with the plots:
     - You can zoom-in the plot after pressing the magnifier icon
     - Press home to restore the original view
 
-The script was not meant to be used in a different setting, therefore, it might not work.
-This would be changed in a near future, in the meantime, feel free to try it out
-
-Possible improvements:
-    - Work with different sample rates
+If you use the script for different purposes, please double check the results.

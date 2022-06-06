@@ -16,6 +16,8 @@ The input is a .mat file containing the reference signal (force)
 exported from Labchart at 1000 Hz sampling frequency, but it works also with 
 a different sampling frequency
 
+Two sample files can be found in the GitHub repository
+
 The user only needs to run the script and read the instructions in the interactive figures
 
 The script automatically filters the signal from noise caused by the alternate current

@@ -37,14 +37,13 @@ If you use the script for different purposes, please double check the results.
 """
 
 ############################################# Input part #################################################
+from pathlib import Path
 """
 You can change the initial directory of the GUI based open-file function
 It is useful to speed-up the research of the file to open
-
-# Example of the directory: (C:\\Users\\Desktop\\) in Windows YOU MUST USE \\ and not a single backslash
 """
 
-initialdir = "\\"
+initialdir = Path("/")
 
 
 ############################# Start of the script - don't modify here ######################################

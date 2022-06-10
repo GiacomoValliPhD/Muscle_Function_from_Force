@@ -2,6 +2,7 @@
 Version 1.03
 
 Author: Giacomo Valli
+
 Contacts: giacomo.valli@phd.unipd.it
 
 --- Description --
@@ -26,10 +27,10 @@ with a low-pass, fourth order, Zero-lag Butterworth filter.
 Instructions on what to do can be found in the plots' titles
 
 To work with the plots:
-    - Any letter of the keyboard adds a point
-    - Mouse right click deletes the point
-    - Enter terminates the task (press it once all the points have been selected)
-    - You can zoom-in the plot after pressing the magnifier icon
-    - Press home to restore the original view
+- Any letter of the keyboard adds a point
+- Mouse right click deletes the point
+- Enter terminates the task (press it once all the points have been selected)
+- You can zoom-in the plot after pressing the magnifier icon
+- Press home to restore the original view
 
 If you use the script for different purposes, please double check the results.

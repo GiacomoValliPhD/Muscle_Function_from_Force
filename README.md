@@ -34,3 +34,10 @@ To work with the plots:
 - Press home to restore the original view
 
 If you use the script for different purposes, please double check the results.
+
+Keep everything organised with a virtual enviorment.
+To create a virtual enviorment type in the terminal (navigate to your directory first):
+- py -m venv mfenv
+
+To install the required libraries type in the terminal:
+- py -m pip install -r requirements.txt

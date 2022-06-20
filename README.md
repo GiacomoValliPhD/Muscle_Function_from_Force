@@ -24,6 +24,9 @@ The user only needs to run the script and read the instructions in the interacti
 The script automatically filters the signal from noise caused by the alternate current
 with a low-pass, fourth order, Zero-lag Butterworth filter.
 
+The script automatically removes force offset based on the starting point used for
+the calculation of TTP63.
+
 Instructions on what to do can be found in the plots' titles
 
 To work with the plots:

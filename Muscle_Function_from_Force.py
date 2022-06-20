@@ -24,6 +24,9 @@ The user only needs to run the script and read the instructions in the interacti
 The script automatically filters the signal from noise caused by the alternate current
 with a low-pass, fourth order, Zero-lag Butterworth filter.
 
+The script automatically removes force offset based on the starting point used for
+the calculation of TTP63.
+
 Instructions on what to do can be found in the plots' titles
 
 To work with the plots:
@@ -127,9 +130,12 @@ def showselect(title, nclic, filename=filename, refsig=refsig):
     fig = plt.figure(num=filename)
     plt.plot(refsig)
     plt.xlabel("Time (Samples)")
-    plt.ylabel("%MViF (N)")
+    plt.ylabel("MViF (N)")
     plt.title(title, fontweight ="bold")
     ginput_res = plt.ginput(n=-1, timeout=0, mouse_add=None)
+
+    # Clear the plot to avoid seeing the old plot in the subsequent calls
+    plt.close()
     
     # Check if the user entered the correct number of clics
     if nclic != len(ginput_res):
@@ -169,31 +175,36 @@ def showselect(title, nclic, filename=filename, refsig=refsig):
 # start_point, end_point only consider the x axes (samples)
 # MViF area
 title = "Select start/end area for MVC then press enter"
-start_point, end_point = showselect(title = title, nclic=2)
-
-# MViF
-mvif = max(refsig[0].iloc[start_point : end_point])
-#print(f"\nMViF is: {round(mvif,2)} N\n")
+start_point_mvif, end_point_mvif = showselect(title = title, nclic=2)
+# MViF is calculated after removing the signal offset
+# Offset is identified by the starting point of TTP63
 
 # TTP area
 title = "Select the start for Time to Peak then press enter"
-start_point = showselect(title = title, nclic=1)
+start_point_ttp = showselect(title = title, nclic=1)
+
+# Remove offset based on the TTP63 start point
+refsig[0] = refsig[0] - refsig[0].iloc[start_point_ttp]
+
+# MViF
+mvif = max(refsig[0].iloc[start_point_mvif : end_point_mvif])
+#print(f"\nMViF is: {round(mvif,2)} N\n")
 
 # TTP63
 n_at_63 = mvif*0.63 # Newton at TTP63
 for ind in refsig.index:
-    if ind >= start_point: # For better performance, avoid accessing df values if unnecessary
+    if ind >= start_point_ttp: # For better performance, avoid accessing df values if unnecessary
         if refsig[0].iloc[ind] >= n_at_63:
             end_point = ind
             break
-ttp63 = (end_point - start_point) / fsamp * 1000
+ttp63 = (end_point - start_point_ttp) / fsamp * 1000
 
 # RFD 50, 100, 150, 200
 def rfd(ms, fsamp=fsamp):
     ms_insamples = round((ms * fsamp) / 1000)
     
-    n_0 = refsig[0].iloc[start_point]
-    n_next = refsig[0].iloc[start_point + ms_insamples]
+    n_0 = refsig[0].iloc[start_point_ttp]
+    n_next = refsig[0].iloc[start_point_ttp + ms_insamples]
     
     rfdval = (n_next - n_0) / (ms/1000) # (ms/1000 to convert mSec in Sec)
     

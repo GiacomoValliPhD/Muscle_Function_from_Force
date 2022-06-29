@@ -128,6 +128,7 @@ print("plot y")
 def showselect(title, nclic, filename=filename, refsig=refsig):
     # Visualise and select the points
     fig = plt.figure(num=filename)
+    fig.canvas.manager.full_screen_toggle() # toggle fullscreen mode
     plt.plot(refsig)
     plt.xlabel("Time (Samples)")
     plt.ylabel("MViF (N)")

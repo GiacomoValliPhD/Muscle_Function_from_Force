@@ -87,10 +87,6 @@ mat_file = loadmat(file_toOpen, simplify_cells=True)
 refsig = mat_file["data"]
 fsamp = mat_file["samplerate"]
 
-# The script works with an fsamp of 1000 Hz, if different, interrupt the execution
-if fsamp != 1000:
-    raise Exception("Sampling frequency was expected to be 1000 Hz, it is {} Hz instead".format(fsamp))
-
 # Convert the refsig from array to df
 refsig = pd.DataFrame(refsig)
 

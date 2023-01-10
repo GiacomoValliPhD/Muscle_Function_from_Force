@@ -1,11 +1,12 @@
 # Muscle_Function_from_Force
-Version 1.03
+Version: 1.03
 
 Author: Giacomo Valli
 
 Contacts: giacomo.valli@phd.unipd.it
 
---- Description --
+Description
+-----------
 
 This script was made for UNIPD students, to compute:
 - MViF (maximum voluntary isometric force (N)),
@@ -15,11 +16,11 @@ This script was made for UNIPD students, to compute:
 
 The input is a .mat file containing the reference signal (force)
 exported from Labchart at 1000 Hz sampling frequency, but it works also with 
-a different sampling frequency
+a different sampling frequency.
 
-Two sample files can be found in the GitHub repository
+Two sample files can be found in the GitHub repository.
 
-The user only needs to run the script and read the instructions in the interactive figures
+The user only needs to run the script and read the instructions in the interactive figures.
 
 The script automatically filters the signal from noise caused by the alternate current
 with a low-pass, fourth order, Zero-lag Butterworth filter.
@@ -27,7 +28,7 @@ with a low-pass, fourth order, Zero-lag Butterworth filter.
 The script automatically removes force offset based on the starting point used for
 the calculation of TTP63.
 
-Instructions on what to do can be found in the plots' titles
+Instructions on what to do can be found in the plots' titles.
 
 To work with the plots:
 - Any letter of the keyboard adds a point
@@ -38,7 +39,7 @@ To work with the plots:
 
 If you use the script for different purposes, please double check the results.
 
-Keep everything organised with a virtual enviorment.
+Keep everything organised with a virtual enviorment.  
 To create a virtual enviorment type in the terminal (navigate to your directory first):
 - py -m venv mfenv
 
